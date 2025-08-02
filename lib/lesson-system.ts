@@ -453,7 +453,7 @@ export class LessonSystem {
 
   // Get all topics
   getAllTopics(): string[] {
-    return [...new Set(this.lessons.map(lesson => lesson.topic))]
+    return Array.from(new Set(this.lessons.map(lesson => lesson.topic)))
   }
 
   // Get lesson by ID
