@@ -16,7 +16,8 @@ import {
   Copy,
   Bookmark,
   Crown,
-  MessageCircle
+  MessageCircle,
+  BookOpen
 } from 'lucide-react'
 import { Lesson, LessonPhrase } from '@/lib/lesson-system'
 
