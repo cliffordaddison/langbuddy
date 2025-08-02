@@ -1,292 +1,251 @@
-# 🇫🇷 LangBuddy - Advanced French Learning App
+# LangBuddy - French Learning App
 
-A comprehensive, free-to-use French learning web application designed for TCF/TEF Exam Preparation, featuring dynamic conversational AI, Pimsleur-style audio memory training, and adaptive learning strategies.
+A comprehensive French language learning application designed to help users master French through interactive lessons, real-time speech recognition, and spaced repetition techniques.
 
-## 🚀 Quick Start
+## 🎯 Overview
 
-### **Prerequisites**
-- Node.js 18+ 
-- npm or yarn
-- Git
+LangBuddy is a modern French learning platform that combines the best practices of language acquisition with cutting-edge technology. The app features 300+ structured lessons organized by topics, real-time speech recognition for pronunciation practice, and intelligent spaced repetition to ensure long-term retention.
 
-### **Local Development**
+## ✨ Key Features
 
-```bash
-# Clone the repository
-git clone <your-repo-url>
-cd LangBuddy
+### 📚 Comprehensive Lesson System
+- **300+ Structured Lessons** organized by real-life topics
+- **Progressive Difficulty** from beginner to advanced levels
+- **Topic-Based Organization** covering essential conversational scenarios
+- **Interactive Learning Flow** with immediate feedback
 
-# Install dependencies
-npm install
+### 🗣️ Speaking-First Approach
+- **Real-time Speech Recognition** for pronunciation practice
+- **High-quality Text-to-Speech** with authentic French pronunciation
+- **Immediate Feedback** on pronunciation and grammar
+- **Hands-free Learning** for natural language acquisition
 
-# Start development server
-npm run dev
-```
+### 🧠 Intelligent Learning System
+- **Spaced Repetition Algorithm** for optimal retention
+- **Personalized Progress Tracking** based on performance
+- **Adaptive Difficulty** that adjusts to your learning pace
+- **Comprehensive Vocabulary Building** with contextual examples
 
-Visit `http://localhost:3000` to start learning French!
+### 🎮 Multiple Learning Modes
+- **Structured Lessons** - Progressive topic-based learning
+- **Free Dialogs** - Open conversational practice
+- **Challenging Exercises** - Advanced skill testing
+- **Repetition Practice** - Review and reinforcement
 
-## 📋 GitHub Setup & Deployment
+## 📖 Lesson Topics
 
-### **1. Push to GitHub**
+The app covers 20+ comprehensive topics with 300+ lessons:
 
-```bash
-# Initialize git (if not already done)
-git init
-
-# Add all files
-git add .
-
-# Create initial commit
-git commit -m "Initial commit: LangBuddy French Learning App"
-
-# Create a new repository on GitHub.com
-# Then connect your local repo:
-git remote add origin https://github.com/yourusername/langbuddy.git
-git branch -M main
-git push -u origin main
-```
-
-### **2. Deploy to Vercel (Recommended)**
-
-```bash
-# Install Vercel CLI
-npm install -g vercel
-
-# Login to Vercel
-vercel login
-
-# Deploy
-vercel --prod
-```
-
-### **3. Environment Variables**
-
-Create `.env.local` in the root directory:
-
-```env
-# AI Service Configuration
-NEXT_PUBLIC_AI_SERVICE_URL=your_ai_service_url
-NEXT_PUBLIC_AI_API_KEY=your_api_key
-
-# Speech Recognition
-NEXT_PUBLIC_SPEECH_RECOGNITION_ENABLED=true
-
-# Analytics (Optional)
-NEXT_PUBLIC_ANALYTICS_ID=your_analytics_id
-```
-
-## 🎯 Key Features
-
-### **🤖 Dynamic Conversational AI**
-- **Natural Dialogue Flow:** Conversations that feel like real-life interactions
-- **Adaptive Learning:** AI adjusts difficulty based on your performance
-- **Contextual Vocabulary:** New words introduced naturally in conversation
-- **Grammar Integration:** Grammar concepts embedded in dialogue
-- **Error Correction:** Gentle, contextual corrections
-
-### **🎧 Pimsleur-Style Audio Memory System**
-- **Audio-First Learning:** Listen before seeing text
-- **Graduated Interval Recall:** 5s → 30s → 2min → 10min → 24h → 1 week
-- **Progressive Complexity:** From single words to complex discourse
-- **Memory State Tracking:** Introduction → Immediate Recall → Short Term → Medium Term → Long Term → Extended → Mastered
-- **Session Types:** Warmup, New Content, Integration, Consolidation
-
-### **🧠 Advanced Learning Strategies**
-- **Pimsleur Method:** Audio-first, spaced repetition, active recall
-- **Michel Thomas Method:** Pattern recognition, cognate building, discovery learning
-- **Comprehensible Input:** Contextual understanding, error tolerance
-- **Adaptive Learning:** Real-time assessment, dynamic difficulty adjustment
-
-### **📱 Progressive Web App (PWA)**
-- **Offline Support:** Learn without internet connection
-- **Install Prompt:** Add to home screen on mobile/desktop
-- **Background Sync:** Sync progress when connection restored
-- **Responsive Design:** Works on all devices
-
-### **🎤 Speech Technology**
-- **Text-to-Speech:** Multiple French accents (Metropolitan, Canadian)
-- **Speech-to-Text:** Real-time pronunciation feedback
-- **Voice Recognition:** Practice speaking with instant feedback
-- **Adjustable Speed:** Control speech rate for comprehension
-
-## 🎓 Learning Modes
-
-### **1. Dynamic Conversation Mode**
-- **Natural Topic Flow:** Conversations evolve organically
-- **Embedded Vocabulary:** Body parts, emotions, idioms, cultural terms
-- **Real-Life Scenarios:** Authentic communication situations
-- **Adaptive Difficulty:** AI adjusts based on your level
-
-### **2. Audio Memory Training**
-- **Session Types:**
-  - **Warmup:** Review previous content
-  - **New Content:** Introduce new phrases
-  - **Integration:** Combine old and new content
-  - **Consolidation:** Rapid recall practice
-
-### **3. Topic-Based Learning**
-- **Daily Life:** Routine, hobbies, weather
-- **Shopping:** Commerce, negotiation, returns
-- **Transport:** Public transport, directions
-- **Work:** Professional conversations, meetings
-- **Relationships:** Family, friends, social interactions
-- **Culture:** Media, current events, regional variations
-
-## 📊 Progress Tracking
-
-### **Comprehensive Analytics**
-- **Vocabulary Retention:** Track word mastery
-- **Grammar Accuracy:** Monitor grammar improvement
-- **Speaking Fluency:** Measure speaking confidence
-- **Listening Comprehension:** Assess understanding
-- **Memory Consolidation:** Track long-term retention
-- **Performance Metrics:** Response speed, accuracy, confidence
-
-### **Visual Progress Dashboard**
-- **Skill Charts:** Visual representation of progress
-- **Achievement System:** Milestone rewards and badges
-- **Learning Insights:** Personalized recommendations
-- **Streak Tracking:** Daily learning motivation
-
-## 🛠 Technical Architecture
-
-### **Frontend Stack**
-- **Next.js 14:** React framework with app router
-- **TypeScript:** Type-safe development
-- **Tailwind CSS:** Utility-first styling
-- **Framer Motion:** Smooth animations
-- **Recharts:** Data visualization
-- **Zustand:** State management with persistence
-
-### **AI Integration**
-- **Dynamic AI Service:** Adaptive conversation engine
-- **Prompt Engineering:** Context-aware responses
-- **Learning Strategy Selection:** Pimsleur, Michel Thomas, Comprehensible Input
-- **Progress Assessment:** Real-time learning evaluation
-
-### **Speech Technology**
-- **Web Speech API:** Text-to-speech and speech recognition
-- **MediaRecorder:** Audio recording capabilities
-- **Multiple Accents:** French and Canadian pronunciation
-- **Speed Control:** Adjustable speech rate
-
-## 🎯 Target Audience
-
-### **Perfect For:**
-- **TCF/TEF Exam Preparation:** Comprehensive exam readiness
-- **Adult Learners:** State-of-the-art teaching methods
-- **Self-Directed Learners:** Flexible, adaptive learning
-- **Conversation Practice:** Real-world communication skills
-- **Vocabulary Building:** Comprehensive word acquisition
-- **Grammar Mastery:** Natural grammar integration
-
-### **Proficiency Levels:**
-- **A1 (Beginner):** Basic survival French
-- **A2 (Elementary):** Daily life conversations
-- **B1 (Intermediate):** Independent communication
-- **B2 (Upper Intermediate):** Complex discussions
-- **C1 (Advanced):** Academic and professional French
-- **C2 (Mastery):** Native-like proficiency
+### Core Topics
+- **I speak French a little** - Basic introductions and greetings
+- **Do you have plans?** - Making plans and arrangements
+- **Can you help me?** - Asking for assistance
+- **Friends and family** - Personal relationships
+- **Asking for directions** - Navigation and location
+- **Daily stories** - Everyday life scenarios
+- **What are you doing** - Activities and work
+- **It was yesterday** - Past tense conversations
+- **It will be fun** - Future plans and excitement
+- **What were you doing?** - Past continuous tense
+- **I must do it** - Obligations and necessities
+- **We've been there** - Past experiences
+- **Stop doing that!** - Commands and requests
+- **If I won a lottery** - Hypothetical situations
+- **Daily stories II-VII** - Extended narrative practice
 
 ## 🚀 Getting Started
 
-### **First Time Setup**
+### Prerequisites
+- Node.js 18+ 
+- npm or yarn
+- Modern web browser with speech recognition support
 
-1. **Choose Learning Mode:**
-   - **Dynamic Conversation:** For natural, flowing practice
-   - **Audio Memory Training:** For structured audio learning
-   - **Topic-Based:** For focused skill development
+### Installation
 
-2. **Configure Settings:**
-   - Speech speed and accent preferences
-   - Difficulty level adjustment
-   - Focus areas selection
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd langbuddy
+   ```
 
-3. **Start Learning:**
-   - Begin with warmup sessions
-   - Progress through difficulty levels
-   - Track your improvement
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-### **Daily Learning Routine**
+3. **Start the development server**
+   ```bash
+   npm run dev
+   ```
 
-1. **5-10 minutes:** Audio memory warmup
-2. **15-20 minutes:** Dynamic conversation practice
-3. **5 minutes:** Progress review and planning
+4. **Open your browser**
+   Navigate to `http://localhost:3000`
 
-## 📈 Success Tips
+## 🎯 How It Works
 
-### **Maximize Learning Effectiveness**
-- **Consistency:** Practice daily, even for short sessions
-- **Active Participation:** Speak, don't just listen
-- **Contextual Learning:** Focus on meaning over translation
-- **Error Tolerance:** Don't fear mistakes - they're learning opportunities
-- **Progressive Challenge:** Gradually increase difficulty
+### Learning Flow
+1. **Select a Lesson** - Choose from 300+ structured lessons
+2. **Listen & Repeat** - AI speaks French phrases for you to repeat
+3. **Get Feedback** - Real-time pronunciation and grammar analysis
+4. **Practice & Improve** - Repeat until perfect pronunciation
+5. **Progress & Review** - Spaced repetition ensures retention
 
-### **Audio Memory Training Tips**
-- **Listen First:** Always hear before seeing text
-- **Repeat Aloud:** Practice pronunciation actively
-- **Trust the Process:** Let spaced repetition work
-- **Review Regularly:** Don't skip review sessions
+### Speech Recognition
+- **French Language Support** - Optimized for French pronunciation
+- **Real-time Analysis** - Immediate feedback on your speech
+- **Error Detection** - Identifies pronunciation and grammar issues
+- **Progressive Learning** - Adapts difficulty based on performance
 
-## 🔧 Development
+### Spaced Repetition
+- **Intelligent Scheduling** - Reviews material at optimal intervals
+- **Performance Tracking** - Monitors your progress and weak areas
+- **Adaptive Review** - Focuses on challenging content
+- **Long-term Retention** - Ensures vocabulary and grammar stick
 
-### **Local Development**
+## 🎨 User Interface
 
+### Design Philosophy
+- **Dark Theme** - Easy on the eyes for extended learning
+- **Mobile-First** - Optimized for mobile and tablet use
+- **Accessibility** - Voice-only operation for hands-free learning
+- **Intuitive Navigation** - Clear, simple interface design
+
+### Key Components
+- **Lesson Browser** - Browse 300+ lessons by topic
+- **Speaking Interface** - Real-time speech practice
+- **Progress Dashboard** - Track your learning journey
+- **Settings Panel** - Customize your learning experience
+
+## 🛠️ Technical Stack
+
+### Frontend
+- **Next.js 14** - React framework with app router
+- **TypeScript** - Type-safe development
+- **Tailwind CSS** - Utility-first styling
+- **Framer Motion** - Smooth animations
+- **Lucide React** - Beautiful icons
+
+### Speech Technology
+- **Web Speech API** - Native browser speech recognition
+- **Speech Synthesis** - High-quality text-to-speech
+- **Real-time Processing** - Immediate feedback and analysis
+
+### State Management
+- **Zustand** - Lightweight state management
+- **Local Storage** - Persistent user progress
+- **Session Management** - Learning session tracking
+
+## 📱 Features
+
+### Core Learning Features
+- ✅ **300+ Structured Lessons** across 20+ topics
+- ✅ **Real-time Speech Recognition** for pronunciation practice
+- ✅ **High-quality Text-to-Speech** with French voices
+- ✅ **Immediate Feedback** on pronunciation and grammar
+- ✅ **Spaced Repetition** for optimal retention
+- ✅ **Progress Tracking** with detailed analytics
+- ✅ **Multiple Learning Modes** (Lessons, Dialogs, Challenges, Repetitions)
+
+### User Experience
+- ✅ **Dark Theme** with blue accent colors
+- ✅ **Mobile-Responsive** design
+- ✅ **Hands-free Operation** for natural learning
+- ✅ **Accessibility Features** for all users
+- ✅ **Offline Capability** with PWA support
+- ✅ **Progress Persistence** across sessions
+
+### Advanced Features
+- ✅ **Adaptive Learning** that adjusts to your pace
+- ✅ **Vocabulary Building** with contextual examples
+- ✅ **Grammar Integration** through natural conversation
+- ✅ **Cultural Context** in lesson content
+- ✅ **Performance Analytics** with detailed insights
+
+## 🎯 Learning Methodology
+
+### Speaking-First Approach
+The app emphasizes speaking as the primary learning method, following proven language acquisition principles:
+
+- **Listen & Repeat** - Natural language learning pattern
+- **Immediate Feedback** - Correct pronunciation in real-time
+- **Contextual Learning** - Grammar and vocabulary in context
+- **Progressive Complexity** - Gradually increasing difficulty
+
+### Spaced Repetition
+Intelligent review scheduling ensures long-term retention:
+
+- **Optimal Intervals** - Reviews at scientifically-proven intervals
+- **Performance-Based** - Adjusts based on your success rate
+- **Weak Area Focus** - Prioritizes challenging content
+- **Long-term Memory** - Builds lasting language skills
+
+## 🚀 Deployment
+
+### Vercel (Recommended)
 ```bash
-# Install dependencies
-npm install
+npm install -g vercel
+vercel
+```
 
-# Start development server
-npm run dev
-
-# Build for production
+### Netlify
+```bash
 npm run build
-
-# Type checking
-npx tsc --noEmit
-
-# Linting
-npm run lint
+# Deploy the 'out' directory
 ```
 
-### **Project Structure**
+### Self-Hosting
+```bash
+npm run build
+npm start
+```
 
+## 📊 Performance
+
+- **Fast Loading** - Optimized for quick startup
+- **Smooth Animations** - 60fps interactions
+- **Efficient Speech Processing** - Real-time analysis
+- **Minimal Resource Usage** - Lightweight and responsive
+
+## 🔧 Configuration
+
+### Environment Variables
+```env
+NEXT_PUBLIC_APP_NAME=LangBuddy
+NEXT_PUBLIC_APP_VERSION=1.0.0
 ```
-LangBuddy/
-├── app/                    # Next.js app router
-├── components/             # React components
-├── lib/                   # Utilities and services
-├── public/                # Static assets
-├── styles/                # Global styles
-└── types/                 # TypeScript definitions
-```
+
+### Customization
+- **Lesson Content** - Easily add new lessons and topics
+- **Speech Settings** - Adjust recognition sensitivity
+- **UI Themes** - Customize colors and styling
+- **Learning Paths** - Create personalized curricula
 
 ## 🤝 Contributing
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
+We welcome contributions! Please see our contributing guidelines for details.
 
 ## 📄 License
 
-This project is open source and available under the [MIT License](LICENSE).
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-## 🆘 Support
+## 🎉 Success Tips
 
-- **Documentation:** Check [DEPLOYMENT.md](./DEPLOYMENT.md) for deployment guides
-- **Issues:** Report bugs on GitHub
-- **Questions:** Open discussions for feature requests
+### For Best Results
+1. **Practice Daily** - Even 10-15 minutes daily is effective
+2. **Speak Aloud** - Use the speech recognition features actively
+3. **Complete Lessons** - Finish lessons before moving to new ones
+4. **Review Regularly** - Use the repetition features for retention
+5. **Be Patient** - Language learning is a journey, not a sprint
 
-## 🎉 Ready to Start?
+### Learning Strategies
+- **Start with Basics** - Master greetings and introductions first
+- **Focus on Pronunciation** - Use the speech feedback actively
+- **Practice Contextually** - Apply what you learn in real situations
+- **Review Weak Areas** - Use the repetition mode for challenging content
+- **Track Progress** - Monitor your improvement over time
 
-Your journey to French fluency begins now! 
+## 🎯 Ready to Start?
 
-**Start Learning:** `npm run dev` → `http://localhost:3000`
+LangBuddy is designed to make French learning natural, effective, and enjoyable. With 300+ lessons, real-time speech recognition, and intelligent spaced repetition, you'll be speaking French confidently in no time!
 
-**Deploy Online:** Follow the [deployment guide](./DEPLOYMENT.md)
-
----
-
-*Built with ❤️ for French learners worldwide* 🇫🇷✨ 
+**Start your French learning journey today!** 🇫🇷✨ 

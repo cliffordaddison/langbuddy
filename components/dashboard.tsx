@@ -14,17 +14,19 @@ import {
   Sun, 
   Moon, 
   Monitor,
-  Headphones
+  Headphones,
+  Crown,
+  Lightbulb
 } from 'lucide-react'
 import { useTheme } from 'next-themes'
 import { useLearningStore } from '@/lib/store'
-import ConversationInterface from './conversation-interface'
+import LessonsInterface from './lessons-interface'
+import SpeakingInterface from './speaking-interface'
 import ProgressOverview from './progress-overview'
 import SettingsPanel from './settings-panel'
-import AudioMemoryInterface from './audio-memory-interface'
-import NatuLangInterface from './natulang-interface'
+import { Lesson } from '@/lib/lesson-system'
 
-type TabType = 'conversation' | 'audio-memory' | 'natulang' | 'progress' | 'settings'
+type TabType = 'lessons' | 'free-dialogs' | 'challenging' | 'repetitions' | 'progress' | 'settings'
 
 interface Tab {
   id: TabType
@@ -33,110 +35,167 @@ interface Tab {
 }
 
 export default function Dashboard() {
-  const [activeTab, setActiveTab] = useState<TabType>('conversation')
+  const [activeTab, setActiveTab] = useState<TabType>('lessons')
+  const [selectedLesson, setSelectedLesson] = useState<Lesson | null>(null)
   const [isListening, setIsListening] = useState(false)
   const [isSpeaking, setIsSpeaking] = useState(false)
   const { theme, setTheme } = useTheme()
   const { userProgress } = useLearningStore()
 
   const tabs: Tab[] = [
-    { id: 'conversation', label: 'Conversation', icon: MessageCircle },
-    { id: 'audio-memory', label: 'Audio Memory', icon: Headphones },
-    { id: 'natulang', label: 'NatuLang Style', icon: Headphones },
+    { id: 'lessons', label: 'Lessons', icon: BookOpen },
+    { id: 'free-dialogs', label: 'Free Dialogs', icon: MessageCircle },
+    { id: 'challenging', label: 'Challenging', icon: Crown },
+    { id: 'repetitions', label: 'Repetitions', icon: Lightbulb },
     { id: 'progress', label: 'Progress', icon: BarChart3 },
     { id: 'settings', label: 'Settings', icon: Settings },
   ]
 
-  const handleAudioSessionComplete = (assessment: any) => {
-    // Update user progress based on audio session results
-    console.log('Audio session completed:', assessment)
-    // You could update the store here with audio session results
+  const handleLessonSelect = (lesson: Lesson) => {
+    setSelectedLesson(lesson)
   }
 
-  const handleNatuLangSessionComplete = (session: any) => {
-    // Update user progress based on NatuLang session results
-    console.log('NatuLang session completed:', session)
-    // You could update the store here with session results
+  const handleLessonComplete = (lesson: Lesson) => {
+    // Mark lesson as completed
+    lesson.isCompleted = true
+    setSelectedLesson(null)
+    // You could update the store here with lesson completion
+  }
+
+  const handleBackToLessons = () => {
+    setSelectedLesson(null)
+  }
+
+  // If a lesson is selected, show the speaking interface
+  if (selectedLesson) {
+    return (
+      <SpeakingInterface
+        lesson={selectedLesson}
+        onComplete={handleLessonComplete}
+        onBack={handleBackToLessons}
+      />
+    )
+  }
+
+  // Show lessons interface for lessons tab
+  if (activeTab === 'lessons') {
+    return (
+      <LessonsInterface onLessonSelect={handleLessonSelect} />
+    )
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-black text-white">
       {/* Header */}
-      <header className="bg-card border-b border-border p-4 flex items-center justify-between">
+      <header className="bg-blue-600 p-4 flex items-center justify-between">
         <div className="flex items-center space-x-3">
-          <BookOpen className="w-7 h-7 text-primary-600" />
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">LangBuddy</h1>
+          <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center">
+            <MessageCircle className="w-5 h-5 text-blue-600" />
+          </div>
+          <h1 className="text-xl font-bold">LangBuddy</h1>
         </div>
-        <div className="flex items-center space-x-4">
-          <div className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400">
-            <span className="font-medium">Level: {userProgress.level}</span>
-            <span className="font-medium">Streak: {userProgress.streak} 🔥</span>
+        <div className="flex items-center space-x-2">
+          <div className="w-6 h-6 bg-white rounded-full flex items-center justify-center">
+            <span className="text-blue-600 text-xs font-bold">FR</span>
           </div>
-          <div className="flex items-center space-x-2">
-            <button
-              onClick={() => setIsListening(!isListening)}
-              className={`p-2 rounded-full ${isListening ? 'bg-red-500 text-white' : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300'} transition-colors`}
-              title={isListening ? "Stop Listening" : "Start Listening"}
-            >
-              {isListening ? <MicOff className="w-5 h-5" /> : <Mic className="w-5 h-5" />}
-            </button>
-            <button
-              onClick={() => setIsSpeaking(!isSpeaking)}
-              className={`p-2 rounded-full ${isSpeaking ? 'bg-blue-500 text-white' : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300'} transition-colors`}
-              title={isSpeaking ? "Stop Speaking" : "Start Speaking"}
-            >
-              {isSpeaking ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
-            </button>
-            <button
-              onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-              className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
-              title="Toggle Theme"
-            >
-              {theme === 'dark' ? <Sun className="w-5 h-5" /> : theme === 'light' ? <Moon className="w-5 h-5" /> : <Monitor className="w-5 h-5" />}
-            </button>
-          </div>
+          <Crown className="w-5 h-5 text-yellow-400" />
         </div>
       </header>
 
-      {/* Navigation Tabs */}
-      <nav className="bg-card border-b border-border px-4 sm:px-6 lg:px-8">
-        <div className="flex space-x-4 py-2">
-          {tabs.map((tab) => {
-            const Icon = tab.icon
-            const isActive = activeTab === tab.id
-            return (
+      {/* Main Content */}
+      <main className="flex-1 p-4">
+        <div className="max-w-4xl mx-auto">
+          {/* Tab Navigation */}
+          <div className="flex space-x-1 mb-6 bg-gray-800 rounded-lg p-1">
+            {tabs.map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center space-x-2 px-4 py-2 rounded-md text-sm font-medium transition-colors ${
-                  isActive
-                    ? 'bg-primary-100 text-primary-700 dark:bg-primary-900/20 dark:text-primary-400'
-                    : 'text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800'
-                }`}
+                className={`
+                  flex items-center space-x-2 px-4 py-2 rounded-md transition-colors
+                  ${activeTab === tab.id
+                    ? 'bg-blue-600 text-white'
+                    : 'text-gray-400 hover:text-white'
+                  }
+                `}
               >
-                <Icon className="w-4 h-4" />
-                <span>{tab.label}</span>
+                <tab.icon className="w-4 h-4" />
+                <span className="text-sm font-medium">{tab.label}</span>
               </button>
-            )
-          })}
+            ))}
+          </div>
+
+          {/* Tab Content */}
+          <div className="space-y-6">
+            {activeTab === 'free-dialogs' && (
+              <div className="text-center py-12">
+                <MessageCircle className="w-16 h-16 mx-auto mb-4 text-blue-400" />
+                <h2 className="text-2xl font-bold mb-2">Free Dialogs</h2>
+                <p className="text-gray-400 mb-6">
+                  Practice conversational French with AI-powered dialogues
+                </p>
+                <button className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition-colors">
+                  Start Free Dialog
+                </button>
+              </div>
+            )}
+
+            {activeTab === 'challenging' && (
+              <div className="text-center py-12">
+                <Crown className="w-16 h-16 mx-auto mb-4 text-yellow-400" />
+                <h2 className="text-2xl font-bold mb-2">Challenging</h2>
+                <p className="text-gray-400 mb-6">
+                  Test your French skills with advanced challenges
+                </p>
+                <button className="bg-yellow-600 hover:bg-yellow-700 text-white font-medium py-3 px-6 rounded-lg transition-colors">
+                  Start Challenge
+                </button>
+              </div>
+            )}
+
+            {activeTab === 'repetitions' && (
+              <div className="text-center py-12">
+                <Lightbulb className="w-16 h-16 mx-auto mb-4 text-green-400" />
+                <h2 className="text-2xl font-bold mb-2">Repetitions</h2>
+                <p className="text-gray-400 mb-6">
+                  Review and practice phrases you need to remember
+                </p>
+                <button className="bg-green-600 hover:bg-green-700 text-white font-medium py-3 px-6 rounded-lg transition-colors">
+                  Start Repetitions
+                </button>
+              </div>
+            )}
+
+            {activeTab === 'progress' && <ProgressOverview />}
+            {activeTab === 'settings' && <SettingsPanel />}
+          </div>
+        </div>
+      </main>
+
+      {/* Bottom Navigation */}
+      <nav className="bg-gray-900 p-4">
+        <div className="flex items-center justify-center space-x-8">
+          <div className="flex flex-col items-center space-y-1">
+            <BookOpen className="w-6 h-6 text-gray-400" />
+            <span className="text-xs text-gray-400">Lessons</span>
+          </div>
+          
+          <div className="flex flex-col items-center space-y-1">
+            <MessageCircle className="w-6 h-6 text-blue-400" />
+            <span className="text-xs text-blue-400">Free Dialogs</span>
+          </div>
+          
+          <div className="flex flex-col items-center space-y-1">
+            <Crown className="w-6 h-6 text-gray-400" />
+            <span className="text-xs text-gray-400">Challenging</span>
+          </div>
+          
+          <div className="flex flex-col items-center space-y-1">
+            <Lightbulb className="w-6 h-6 text-gray-400" />
+            <span className="text-xs text-gray-400">Repetitions</span>
+          </div>
         </div>
       </nav>
-
-      {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <motion.div
-          key={activeTab}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3 }}
-        >
-          {activeTab === 'conversation' && <ConversationInterface />}
-          {activeTab === 'audio-memory' && <AudioMemoryInterface onSessionComplete={handleAudioSessionComplete} />}
-          {activeTab === 'natulang' && <NatuLangInterface onSessionComplete={handleNatuLangSessionComplete} />}
-          {activeTab === 'progress' && <ProgressOverview />}
-          {activeTab === 'settings' && <SettingsPanel />}
-        </motion.div>
-      </main>
     </div>
   )
 } 
