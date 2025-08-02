@@ -22,8 +22,9 @@ import ConversationInterface from './conversation-interface'
 import ProgressOverview from './progress-overview'
 import SettingsPanel from './settings-panel'
 import AudioMemoryInterface from './audio-memory-interface'
+import NatuLangInterface from './natulang-interface'
 
-type TabType = 'conversation' | 'audio-memory' | 'progress' | 'settings'
+type TabType = 'conversation' | 'audio-memory' | 'natulang' | 'progress' | 'settings'
 
 interface Tab {
   id: TabType
@@ -41,6 +42,7 @@ export default function Dashboard() {
   const tabs: Tab[] = [
     { id: 'conversation', label: 'Conversation', icon: MessageCircle },
     { id: 'audio-memory', label: 'Audio Memory', icon: Headphones },
+    { id: 'natulang', label: 'NatuLang Style', icon: Headphones },
     { id: 'progress', label: 'Progress', icon: BarChart3 },
     { id: 'settings', label: 'Settings', icon: Settings },
   ]
@@ -49,6 +51,12 @@ export default function Dashboard() {
     // Update user progress based on audio session results
     console.log('Audio session completed:', assessment)
     // You could update the store here with audio session results
+  }
+
+  const handleNatuLangSessionComplete = (session: any) => {
+    // Update user progress based on NatuLang session results
+    console.log('NatuLang session completed:', session)
+    // You could update the store here with session results
   }
 
   return (
@@ -124,6 +132,7 @@ export default function Dashboard() {
         >
           {activeTab === 'conversation' && <ConversationInterface />}
           {activeTab === 'audio-memory' && <AudioMemoryInterface onSessionComplete={handleAudioSessionComplete} />}
+          {activeTab === 'natulang' && <NatuLangInterface onSessionComplete={handleNatuLangSessionComplete} />}
           {activeTab === 'progress' && <ProgressOverview />}
           {activeTab === 'settings' && <SettingsPanel />}
         </motion.div>
