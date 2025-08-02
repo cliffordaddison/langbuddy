@@ -4,7 +4,6 @@ import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Send, Mic, MicOff, Volume2, VolumeX, RotateCcw, MessageSquare, BookOpen, Sparkles, Brain } from 'lucide-react'
 import { useLearningStore } from '@/lib/store'
-import { useSpeechRecognition } from 'react-speech-recognition'
 import MessageBubble from './message-bubble'
 import TopicSelector from './topic-selector'
 import { generateAIResponse } from '@/lib/ai-service'
@@ -16,7 +15,9 @@ export default function ConversationInterface() {
   const [isSpeaking, setIsSpeaking] = useState(false)
   const [currentVocabularyFocus, setCurrentVocabularyFocus] = useState<string>('')
   const [showVocabularyPanel, setShowVocabularyPanel] = useState(false)
+  const [transcript, setTranscript] = useState('')
   const messagesEndRef = useRef<HTMLDivElement>(null)
+  const recognitionRef = useRef<any>(null)
   
   const { 
     conversationHistory, 
@@ -29,20 +30,38 @@ export default function ConversationInterface() {
     userProgress
   } = useLearningStore()
 
-  // Speech Recognition
-  const {
-    transcript,
-    listening,
-    resetTranscript,
-    browserSupportsSpeechRecognition
-  } = useSpeechRecognition()
-
+  // Initialize speech recognition
   useEffect(() => {
-    if (transcript && !isListening) {
-      setInputMessage(transcript)
-      resetTranscript()
+    if (typeof window !== 'undefined' && 'webkitSpeechRecognition' in window) {
+      const SpeechRecognition = (window as any).webkitSpeechRecognition || (window as any).SpeechRecognition
+      recognitionRef.current = new SpeechRecognition()
+      recognitionRef.current.continuous = true
+      recognitionRef.current.interimResults = true
+      recognitionRef.current.lang = 'fr-FR'
+
+      recognitionRef.current.onresult = (event: any) => {
+        let finalTranscript = ''
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          if (event.results[i].isFinal) {
+            finalTranscript += event.results[i][0].transcript
+          }
+        }
+        if (finalTranscript) {
+          setTranscript(finalTranscript)
+          setInputMessage(finalTranscript)
+        }
+      }
+
+      recognitionRef.current.onerror = (event: any) => {
+        console.error('Speech recognition error:', event.error)
+        setIsListening(false)
+      }
+
+      recognitionRef.current.onend = () => {
+        setIsListening(false)
+      }
     }
-  }, [transcript, isListening, resetTranscript])
+  }, [])
 
   useEffect(() => {
     scrollToBottom()
@@ -103,7 +122,7 @@ export default function ConversationInterface() {
       console.error('Error generating AI response:', error)
       addMessage({
         role: 'assistant',
-        content: "Désolé, j'ai eu un problème. Pouvez-vous répéter votre message ?",
+        content: 'Désolé, j\'ai rencontré une erreur. Pouvez-vous réessayer ?',
       })
     } finally {
       setIsTyping(false)
@@ -111,42 +130,56 @@ export default function ConversationInterface() {
   }
 
   const speakText = (text: string) => {
-    if ('speechSynthesis' in window) {
-      setIsSpeaking(true)
+    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+      if (isSpeaking) {
+        window.speechSynthesis.cancel()
+      }
+      
       const utterance = new SpeechSynthesisUtterance(text)
       utterance.lang = 'fr-FR'
       utterance.rate = settings.speechSpeed
-      utterance.voice = speechSynthesis.getVoices().find(voice => 
-        voice.lang === 'fr-FR' && voice.name.includes(settings.accent === 'quebec' ? 'Québec' : 'France')
-      ) || null
+      utterance.voice = settings.accent === 'quebec' ? 
+        window.speechSynthesis.getVoices().find(voice => voice.lang.includes('fr-CA')) || null :
+        window.speechSynthesis.getVoices().find(voice => voice.lang.includes('fr-FR')) || null
       
+      utterance.onstart = () => setIsSpeaking(true)
       utterance.onend = () => setIsSpeaking(false)
       utterance.onerror = () => setIsSpeaking(false)
       
-      speechSynthesis.speak(utterance)
+      window.speechSynthesis.speak(utterance)
+    }
+  }
+
+  const toggleListening = () => {
+    if (!recognitionRef.current) {
+      alert('La reconnaissance vocale n\'est pas supportée par votre navigateur.')
+      return
+    }
+
+    if (isListening) {
+      recognitionRef.current.stop()
+    } else {
+      recognitionRef.current.start()
+      setIsListening(true)
     }
   }
 
   const handleStartSession = (topic: string, difficulty: 'easy' | 'medium' | 'hard') => {
     startSession(topic, difficulty)
     
-    if (topic.includes('Dynamique')) {
+    // Add welcome message for dynamic conversations
+    if (topic === 'dynamic') {
       addMessage({
         role: 'assistant',
-        content: `🌟 Bienvenue dans votre conversation dynamique ! Je vais vous aider à enrichir votre vocabulaire français de manière naturelle. Nous pouvons parler de tout et n'importe quoi - comme dans la vraie vie ! Que souhaitez-vous aborder aujourd'hui ?`,
-      })
-    } else {
-      addMessage({
-        role: 'assistant',
-        content: `Bonjour ! Commençons notre conversation sur "${topic}". Je vais adapter le niveau de difficulté à ${difficulty} et enrichir votre vocabulaire. Prêt(e) à commencer ?`,
+        content: '🌟 Bienvenue dans la Conversation Dynamique ! Parlons naturellement de n\'importe quoi. Je vais enrichir votre vocabulaire et corriger votre grammaire de manière naturelle. Commençons !',
       })
     }
   }
 
   const handleClearConversation = () => {
     clearConversation()
-    endSession()
     setCurrentVocabularyFocus('')
+    setShowVocabularyPanel(false)
   }
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -157,18 +190,12 @@ export default function ConversationInterface() {
   }
 
   const getVocabularyCategories = () => {
-    if (!currentVocabularyFocus) return []
-    
-    const categories = currentVocabularyFocus.split(', ')
-    return categories.map(cat => ({
-      name: cat,
-      icon: cat === 'bodyParts' ? '👤' : 
-            cat === 'emotions' ? '😊' : 
-            cat === 'food' ? '🍽️' : 
-            cat === 'weather' ? '🌤️' : 
-            cat === 'work' ? '💼' : 
-            cat === 'dailyLife' ? '🏠' : '📚'
-    }))
+    return [
+      'Corps humain', 'Émotions', 'Idiomes', 'Couleurs', 'Nombres',
+      'Temps', 'Nourriture', 'Transport', 'Travail', 'Famille',
+      'Vêtements', 'Maison', 'Animaux', 'Sports', 'Musique',
+      'Cinéma', 'Voyage', 'Technologie', 'Santé', 'Éducation'
+    ]
   }
 
   return (
@@ -302,24 +329,17 @@ export default function ConversationInterface() {
             
             <div className="flex items-center space-x-2">
               {/* Speech Recognition */}
-              {browserSupportsSpeechRecognition && (
+              {typeof window !== 'undefined' && 'webkitSpeechRecognition' in window && (
                 <button
-                  onClick={() => {
-                    if (listening) {
-                      setIsListening(false)
-                    } else {
-                      setIsListening(true)
-                      resetTranscript()
-                    }
-                  }}
+                  onClick={toggleListening}
                   className={`p-2 rounded-lg transition-colors ${
-                    listening 
+                    isListening 
                       ? 'bg-red-100 text-red-600 dark:bg-red-900/20 dark:text-red-400' 
                       : 'bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400'
                   }`}
                   disabled={isTyping}
                 >
-                  {listening ? <MicOff className="w-4 h-4" /> : <Mic className="w-4 h-4" />}
+                  {isListening ? <MicOff className="w-4 h-4" /> : <Mic className="w-4 h-4" />}
                 </button>
               )}
 
@@ -335,7 +355,7 @@ export default function ConversationInterface() {
           </div>
 
           {/* Speech Status */}
-          {listening && (
+          {isListening && (
             <div className="mt-2 text-sm text-red-600 dark:text-red-400">
               Écoute en cours... Parlez maintenant
             </div>
