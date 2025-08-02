@@ -2,28 +2,34 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import {
-  MessageCircle,
-  BookOpen,
-  BarChart3,
-  Settings,
-  Mic,
-  MicOff,
-  Volume2,
-  VolumeX,
-  Sun,
-  Moon,
+import { 
+  MessageCircle, 
+  BarChart3, 
+  Settings, 
+  BookOpen, 
+  Mic, 
+  MicOff, 
+  Volume2, 
+  VolumeX, 
+  Sun, 
+  Moon, 
   Monitor,
   Headphones
 } from 'lucide-react'
 import { useTheme } from 'next-themes'
+import { useLearningStore } from '@/lib/store'
 import ConversationInterface from './conversation-interface'
 import ProgressOverview from './progress-overview'
 import SettingsPanel from './settings-panel'
 import AudioMemoryInterface from './audio-memory-interface'
-import { useLearningStore } from '@/lib/store'
 
 type TabType = 'conversation' | 'audio-memory' | 'progress' | 'settings'
+
+interface Tab {
+  id: TabType
+  label: string
+  icon: React.ComponentType<{ className?: string }>
+}
 
 export default function Dashboard() {
   const [activeTab, setActiveTab] = useState<TabType>('conversation')
@@ -32,7 +38,7 @@ export default function Dashboard() {
   const { theme, setTheme } = useTheme()
   const { userProgress } = useLearningStore()
 
-  const tabs = [
+  const tabs: Tab[] = [
     { id: 'conversation', label: 'Conversation', icon: MessageCircle },
     { id: 'audio-memory', label: 'Audio Memory', icon: Headphones },
     { id: 'progress', label: 'Progress', icon: BarChart3 },
