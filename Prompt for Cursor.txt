@@ -1,0 +1,202 @@
+# Build an Advanced French Learning Web Application for TCF/TEF Exam Preparation
+
+## Project Overview
+Create a comprehensive, free-to-use French learning web application that takes users from absolute beginner (A1) to advanced proficiency (C2) and also specifically targeting TCF and TEF exam preparation for Canadian immigration. The app should use reinforcement learning, spaced repetition, and conversational AI to provide personalized, adaptive learning experiences.
+
+## Core Features & Requirements
+
+### 1. Conversational AI Engine
+- **Free LLM Integration**: Implement using free APIs like:
+  - Hugging Face Transformers (free tier)
+  - Ollama (local deployment)
+  - Together AI (free tier)
+  - Cohere (free tier)
+- **Conversational Flow**: Real-time back-and-forth dialogue with adaptive difficulty
+- **Context Awareness**: Remember conversation history and user progress
+- **Error Detection**: Automatically identify grammar, vocabulary, and pronunciation mistakes
+- **Adaptive Responses**: Adjust complexity based on user comprehension level
+- **Comprehension Monitoring**: Detect when user doesn't understand and automatically simplify explanations
+
+### 2. Speech Technology Integration
+- **Text-to-Speech (TTS)**:
+  - Use Web Speech API (free, built into browsers)
+  - Fallback: ResponsiveVoice.js (free tier)
+  - Option: ElevenLabs (free tier with realistic French pronunciation)
+  - Multiple French accents (Canadian French, Metropolitan French)
+  - Adjustable speech speed for learning
+- **Speech-to-Text (STT)**:
+  - Web Speech API (free, built-in)
+  - Backup: AssemblyAI (free tier)
+  - Real-time pronunciation feedback
+  - Accent detection and correction suggestions
+
+### 3. Dialogue-Based Spaced Repetition System (SRS)
+- **Conversational SRS Algorithm**: Implement SM-2 or SM-17 algorithm applied to dialogue scenarios
+- **Dialogue Scheduling**: Previously practiced conversations/topics resurface based on forgetting curve
+- **Contextual Review**: Vocabulary and grammar reviewed within natural dialogue contexts
+- **Progressive Dialogue Complexity**: Same topics revisited with increasing difficulty over time
+- **Automatic Reinforcement**: Struggling dialogue patterns automatically scheduled for more frequent practice
+- **Dialogue Types for SRS**:
+  - **Cultural Integration Scenarios**: French social customs, etiquette, and cultural norms
+  - **Daily Life Immersion**: Shopping at French markets, using public transport, dealing with French bureaucracy
+  - **Social Interactions**: Making friends, casual conversations, French humor and expressions
+  - **Regional Variations**: Québécois vs Metropolitan French expressions and cultural differences
+  - **Professional Integration**: French workplace culture, networking, business meetings
+  - **Family & Relationships**: French family dynamics, dating culture, social gatherings
+  - **Community Participation**: Joining clubs, volunteering, neighborhood interactions
+  - **French Media Discussions**: Talking about French films, music, news, and current events
+  - **Slang & Colloquialisms**: Natural, contemporary French expressions and informal speech
+  - **Emotional Expressions**: How French speakers naturally express feelings, opinions, and reactions
+  - **Exam Preparation**: TCF/TEF practice integrated naturally within cultural contexts
+
+### 4. Adaptive Learning & Reinforcement
+- **Progress Tracking**: Monitor user performance across all skills
+- **Weakness Identification**: Automatically identify problem areas
+- **Reinforcement Learning**: Adjust lesson difficulty and content based on performance
+- **Personalized Learning Path**: Dynamic curriculum adaptation
+- **Milestone Rewards**: Gamification elements to maintain motivation
+
+### 5. Comprehensive Skill Development
+
+#### Dialogue-Embedded Learning
+- **Cultural Vocabulary**: French words and expressions learned within cultural and social contexts
+- **Situational Relevance**: Vocabulary introduced through realistic scenarios you'll encounter in French-speaking communities
+- **Natural Usage Patterns**: Learn how French speakers actually use words in different social situations
+- **Contemporary Expressions**: Stay current with modern French vocabulary, internet slang, and generational language differences
+- **Cross-Cultural Understanding**: Learn vocabulary that helps navigate cultural differences and avoid misunderstandings
+- **Community-Specific Terms**: Vocabulary relevant to Canadian French communities, workplace culture, and social integration
+
+#### Grammar Training
+- **Dialogue-Integrated Grammar**: Grammar rules taught through natural conversation patterns
+- **Corrective Conversations**: AI provides corrections within ongoing dialogue flow
+- **Pattern Reinforcement**: Grammar structures repeatedly practiced through varied dialogue contexts
+- **Interactive Error Correction**: Real-time grammar fixes with explanations during conversations
+- **Contextual Rule Application**: Grammar learned through practical dialogue use, not isolated exercises
+- **Progressive Complexity**: Grammar difficulty increases naturally as dialogue sophistication grows
+
+#### Cultural Integration & Natural Expression
+- **Authentic French Communication**: Learn how native speakers actually talk, including interruptions, fillers, and natural speech patterns
+- **Cultural Context Learning**: Understand French values, social norms, and unwritten rules through dialogue
+- **Regional Authenticity**: Exposure to both European French and Québécois expressions, accent, and cultural references
+- **Emotional Intelligence**: Learn appropriate emotional expressions and reactions in French social contexts
+- **Humor & Wit**: Practice French humor, wordplay, and cultural references that help with social integration
+- **Contemporary Language**: Stay current with modern French expressions, youth slang, and evolving language trends
+- **Social Nuances**: Understand formality levels, when to use "tu" vs "vous", and appropriate conversation topics
+- **Non-Verbal Communication**: Learn about French gestures, personal space, and cultural body language through dialogue descriptions
+
+#### Natural Speech & Community Integration
+- **Authentic Pronunciation**: Learn natural rhythm, intonation, and speaking patterns of native French speakers
+- **Conversational Flow**: Practice natural conversation skills including interrupting politely, changing topics, and responding spontaneously
+- **Social Integration Practice**: Role-play real community scenarios like joining sports clubs, attending social events, making small talk
+- **Cultural Competency**: Develop understanding of French social codes through guided conversations
+- **Confidence Building**: Progress from formal, textbook French to natural, confident expression
+- **Real-World Scenarios**: Practice handling unexpected situations, miscommunications, and cultural misunderstandings
+
+### 6. User Interface & Experience
+
+#### Design Requirements
+- **Modern, Beautiful UI**: Clean, intuitive design with smooth animations
+- **Dark Mode**: Full dark theme support with system preference detection
+- **Mobile Responsive**: Works seamlessly on phones, tablets, and desktops
+- **Accessibility**: Screen reader compatible, keyboard navigation
+- **Performance**: Fast loading, smooth interactions
+
+#### Navigation & Layout
+- **Dashboard**: Progress overview, daily goals, streak counter
+- **Lesson Interface**: Clean conversation view with audio controls
+- **Progress Tracking**: Visual charts showing improvement over time
+- **Settings Panel**: Customize speech speed, accent preferences, difficulty
+- **Achievement System**: Badges and milestones for motivation
+
+### 7. Technical Architecture
+
+#### Frontend Framework
+- **React.js** or **Next.js** for modern, performant UI
+- **Tailwind CSS** for styling and dark mode
+- **Framer Motion** for smooth animations
+- **Chart.js** or **Recharts** for progress visualization
+
+#### Backend Services
+- **Node.js/Express** or **Python/FastAPI** for API
+- **SQLite** or **PostgreSQL** for user data and progress
+- **WebSocket** for real-time conversation features
+- **PWA Support** for offline functionality
+
+#### AI Integration
+- **API Abstraction Layer**: Easy switching between different LLM providers
+- **Prompt Engineering**: Carefully crafted prompts for French teaching
+- **Response Processing**: Parse AI responses for grammar corrections and explanations
+- **Fallback Systems**: Graceful handling when AI services are unavailable
+
+### 8. Cultural Integration & Authentic Communication
+- **French Lifestyle Immersion**: Dialogue scenarios covering French daily life, traditions, and social customs
+- **Regional Cultural Awareness**: Understanding differences between France, Quebec, and other Francophone regions
+- **Social Integration Skills**: Practice making French friends, understanding social hierarchies, and participating in community life
+- **Cultural Reference Building**: Learn about French history, pop culture, politics, and current events through natural conversation
+- **Authentic Expression Training**: Move beyond textbook French to natural, culturally appropriate communication
+- **Community Integration Practice**: Scenarios for joining French-speaking communities, understanding local customs, and building relationships
+- **French Mindset Development**: Learn to think and express ideas the way French speakers do, not just translate from English
+
+### 9. TCF/TEF Exam Integration
+- **Exam Format Simulation**: Practice tests matching real exam structure, integrated naturally within cultural dialogue contexts
+- **Time Management**: Timed exercises matching exam conditions while maintaining authentic conversation flow
+- **Score Prediction**: Estimate current proficiency level based on natural conversation performance
+- **Weak Area Focus**: Targeted practice for challenging exam sections through relevant cultural scenarios
+- **Official Vocabulary**: Integration of official TCF/TEF word lists within meaningful cultural contexts
+- **Performance Metrics**: Track accuracy, response time, retention rates
+- **Learning Insights**: Weekly/monthly progress reports
+- **Adaptive Recommendations**: Suggest focus areas based on performance
+- **Goal Setting**: Set and track specific learning objectives
+- **Streak Tracking**: Daily usage motivation with streak counters
+
+### 10. Learning Analytics & Feedback
+- **Offline Mode**: Download lessons for offline practice
+- **Export Progress**: Backup learning data
+- **Community Features**: Optional leaderboards and achievements
+- **Study Reminders**: Customizable notification system
+- **Multiple Learning Modes**: Conversation, flashcards, listening practice, grammar drills
+
+### 11. Additional Features
+
+## Implementation Priorities
+- Basic conversational AI with free TTS/STT
+- Dialogue-based SRS system with conversation scheduling
+- Core grammar and vocabulary integrated into natural dialogues
+- Basic progress tracking through conversation performance
+- Responsive UI with dark mode
+
+### Phase 2 (Enhanced)
+- Advanced conversation scenarios
+- Pronunciation assessment
+- TCF/TEF specific content
+- Detailed analytics dashboard
+- Mobile app version
+
+### Phase 3 (Advanced)
+- Reinforcement learning optimization
+- Community features
+- Advanced speech recognition
+- Comprehensive exam simulation
+- Offline functionality
+
+## Success Metrics
+- User retention rates (daily, weekly, monthly)
+- Learning progression speed (A1 to C2 timeline)
+- TCF/TEF exam score improvements
+- User satisfaction and engagement
+- Feature usage analytics
+
+## Budget Considerations
+- Prioritize free APIs and services
+- Implement graceful degradation for premium features
+- Plan for scaling with freemium model if needed
+- Monitor API usage to stay within free tiers
+
+## Technical Constraints
+- Must work in web browsers (Chrome, Firefox, Safari, Edge)
+- Responsive design for all screen sizes
+- Fast loading times (< 3 seconds initial load)
+- Minimal storage requirements
+- Cross-platform compatibility
+
+Create this application as a comprehensive, user-friendly, and effective French learning platform that can genuinely help users achieve C2 proficiency and succeed in their TCF/TEF exams for Canadian immigration. Focus on creating an engaging, adaptive learning experience that feels like having a personal French tutor available 24/7.
