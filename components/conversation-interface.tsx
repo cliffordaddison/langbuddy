@@ -191,10 +191,26 @@ export default function ConversationInterface() {
 
   const getVocabularyCategories = () => {
     return [
-      'Corps humain', 'Émotions', 'Idiomes', 'Couleurs', 'Nombres',
-      'Temps', 'Nourriture', 'Transport', 'Travail', 'Famille',
-      'Vêtements', 'Maison', 'Animaux', 'Sports', 'Musique',
-      'Cinéma', 'Voyage', 'Technologie', 'Santé', 'Éducation'
+      { name: 'Corps humain', icon: '👤' },
+      { name: 'Émotions', icon: '😊' },
+      { name: 'Idiomes', icon: '💬' },
+      { name: 'Couleurs', icon: '🎨' },
+      { name: 'Nombres', icon: '🔢' },
+      { name: 'Temps', icon: '⏰' },
+      { name: 'Nourriture', icon: '🍽️' },
+      { name: 'Transport', icon: '🚗' },
+      { name: 'Travail', icon: '💼' },
+      { name: 'Famille', icon: '👨‍👩‍👧‍👦' },
+      { name: 'Vêtements', icon: '👕' },
+      { name: 'Maison', icon: '🏠' },
+      { name: 'Animaux', icon: '🐾' },
+      { name: 'Sports', icon: '⚽' },
+      { name: 'Musique', icon: '🎵' },
+      { name: 'Cinéma', icon: '🎬' },
+      { name: 'Voyage', icon: '✈️' },
+      { name: 'Technologie', icon: '💻' },
+      { name: 'Santé', icon: '🏥' },
+      { name: 'Éducation', icon: '📚' }
     ]
   }
 
