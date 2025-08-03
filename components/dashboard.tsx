@@ -23,20 +23,23 @@ import {
   TrendingUp,
   Clock,
   Users,
-  CheckCircle
+  CheckCircle,
+  Bot
 } from 'lucide-react'
 import { useTheme } from 'next-themes'
 import { useLearningStore } from '@/lib/store'
 import LessonsInterface from './lessons-interface'
 import ConversationSelector from './conversation-selector'
 import ConversationInterface from './conversation-interface'
+import NatulangLessonSelector from './natulang-lesson-selector'
+import NatulangInterface from './natulang-interface'
 import SpeakingInterface from './speaking-interface'
 import ProgressOverview from './progress-overview'
 import SettingsPanel from './settings-panel'
 import { Lesson } from '@/lib/lesson-system'
 import { ConversationContext, LearningSession } from '@/lib/conversation-system'
 
-type TabType = 'lessons' | 'conversations' | 'challenging' | 'repetitions' | 'progress' | 'settings'
+type TabType = 'lessons' | 'conversations' | 'natulang' | 'challenging' | 'repetitions' | 'progress' | 'settings'
 
 const CONVERSATIONS_TAB: TabType = 'conversations'
 const LESSONS_TAB: TabType = 'lessons'
@@ -52,6 +55,7 @@ export default function Dashboard() {
   const [selectedLesson, setSelectedLesson] = useState<Lesson | null>(null)
   const [selectedContext, setSelectedContext] = useState<ConversationContext | null>(null)
   const [completedSession, setCompletedSession] = useState<LearningSession | null>(null)
+  const [selectedNatulangLesson, setSelectedNatulangLesson] = useState<string | null>(null)
   const [isListening, setIsListening] = useState(false)
   const [isSpeaking, setIsSpeaking] = useState(false)
   const { theme, setTheme } = useTheme()
@@ -60,6 +64,7 @@ export default function Dashboard() {
   const tabs: Tab[] = [
     { id: 'lessons', label: 'Lessons', icon: BookOpen },
     { id: 'conversations', label: 'Conversations', icon: MessageCircle },
+    { id: 'natulang', label: 'Natulang', icon: Bot },
     { id: 'challenging', label: 'Challenging', icon: Crown },
     { id: 'repetitions', label: 'Repetitions', icon: Lightbulb },
     { id: 'progress', label: 'Progress', icon: BarChart3 },
@@ -95,10 +100,34 @@ export default function Dashboard() {
     setSelectedContext(null)
   }
 
+  const handleNatulangLessonSelect = (lessonId: string) => {
+    setSelectedNatulangLesson(lessonId)
+  }
+
+  const handleNatulangLessonComplete = (session: any) => {
+    setSelectedNatulangLesson(null)
+    // You could update the store here with session completion
+  }
+
+  const handleBackToNatulangLessons = () => {
+    setSelectedNatulangLesson(null)
+  }
+
+    // If a Natulang lesson is selected, show the Natulang interface
+  if (selectedNatulangLesson) {
+    return (
+      <NatulangInterface 
+        lessonId={selectedNatulangLesson}
+        onComplete={handleNatulangLessonComplete}
+        onBack={handleBackToNatulangLessons}
+      />
+    )
+  }
+
   // If a conversation context is selected, show the conversation interface
   if (selectedContext) {
     return (
-      <ConversationInterface
+      <ConversationInterface 
         context={selectedContext}
         onComplete={handleConversationComplete}
         onBack={handleBackToConversations}
@@ -117,15 +146,25 @@ export default function Dashboard() {
     )
   }
 
-  // Show conversation selector for conversations tab
-  if (activeTab === CONVERSATIONS_TAB) {
-    return (
-      <ConversationSelector 
-        onSelectContext={handleContextSelect}
-        onBack={() => setActiveTab(LESSONS_TAB)}
-      />
-    )
-  }
+              // Show Natulang lesson selector for natulang tab
+            if (activeTab === 'natulang') {
+              return (
+                <NatulangLessonSelector 
+                  onSelectLesson={handleNatulangLessonSelect}
+                  onBack={() => setActiveTab(LESSONS_TAB)}
+                />
+              )
+            }
+
+            // Show conversation selector for conversations tab
+            if (activeTab === CONVERSATIONS_TAB) {
+              return (
+                <ConversationSelector 
+                  onSelectContext={handleContextSelect}
+                  onBack={() => setActiveTab(LESSONS_TAB)}
+                />
+              )
+            }
 
   // Show lessons interface for lessons tab
   if (activeTab === 'lessons') {
