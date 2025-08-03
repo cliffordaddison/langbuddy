@@ -1,251 +1,197 @@
-# LangBuddy - French Learning App
+# LangBuddy - AI-Powered French Learning App
 
-A comprehensive French language learning application designed to help users master French through interactive lessons, real-time speech recognition, and spaced repetition techniques.
+LangBuddy is a sophisticated French learning application that mimics the dynamic, conversation-based approach of Natulang. Unlike traditional language apps that simply present static lessons, LangBuddy creates interactive, AI-driven conversations that adapt to your learning needs.
 
-## 🎯 Overview
+## 🚀 Features
 
-LangBuddy is a modern French learning platform that combines the best practices of language acquisition with cutting-edge technology. The app features 300+ structured lessons organized by topics, real-time speech recognition for pronunciation practice, and intelligent spaced repetition to ensure long-term retention.
+### Dynamic Conversation System
+- **Real-time AI Conversations**: Engage in natural French conversations with AI characters
+- **Contextual Learning**: Practice in realistic scenarios (library, restaurant, travel)
+- **Immediate Feedback**: Get instant pronunciation and grammar corrections
+- **Personalized Learning**: AI adapts to your mistakes and focuses on your weak areas
 
-## ✨ Key Features
+### Advanced Learning Features
+- **Grammar Integration**: Learn grammar naturally within conversations
+- **Cultural Context**: Understand French culture and social norms
+- **Pronunciation Analysis**: Real-time speech recognition and feedback
+- **Progress Tracking**: Monitor your improvement across multiple metrics
 
-### 📚 Comprehensive Lesson System
-- **300+ Structured Lessons** organized by real-life topics
-- **Progressive Difficulty** from beginner to advanced levels
-- **Topic-Based Organization** covering essential conversational scenarios
-- **Interactive Learning Flow** with immediate feedback
-
-### 🗣️ Speaking-First Approach
-- **Real-time Speech Recognition** for pronunciation practice
-- **High-quality Text-to-Speech** with authentic French pronunciation
-- **Immediate Feedback** on pronunciation and grammar
-- **Hands-free Learning** for natural language acquisition
-
-### 🧠 Intelligent Learning System
-- **Spaced Repetition Algorithm** for optimal retention
-- **Personalized Progress Tracking** based on performance
-- **Adaptive Difficulty** that adjusts to your learning pace
-- **Comprehensive Vocabulary Building** with contextual examples
-
-### 🎮 Multiple Learning Modes
-- **Structured Lessons** - Progressive topic-based learning
-- **Free Dialogs** - Open conversational practice
-- **Challenging Exercises** - Advanced skill testing
-- **Repetition Practice** - Review and reinforcement
-
-## 📖 Lesson Topics
-
-The app covers 20+ comprehensive topics with 300+ lessons:
-
-### Core Topics
-- **I speak French a little** - Basic introductions and greetings
-- **Do you have plans?** - Making plans and arrangements
-- **Can you help me?** - Asking for assistance
-- **Friends and family** - Personal relationships
-- **Asking for directions** - Navigation and location
-- **Daily stories** - Everyday life scenarios
-- **What are you doing** - Activities and work
-- **It was yesterday** - Past tense conversations
-- **It will be fun** - Future plans and excitement
-- **What were you doing?** - Past continuous tense
-- **I must do it** - Obligations and necessities
-- **We've been there** - Past experiences
-- **Stop doing that!** - Commands and requests
-- **If I won a lottery** - Hypothetical situations
-- **Daily stories II-VII** - Extended narrative practice
-
-## 🚀 Getting Started
-
-### Prerequisites
-- Node.js 18+ 
-- npm or yarn
-- Modern web browser with speech recognition support
-
-### Installation
-
-1. **Clone the repository**
-   ```bash
-   git clone <repository-url>
-   cd langbuddy
-   ```
-
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
-
-3. **Start the development server**
-   ```bash
-   npm run dev
-   ```
-
-4. **Open your browser**
-   Navigate to `http://localhost:3000`
+### Interactive Scenarios
+- **Library Conversations**: Practice asking for help and finding books
+- **Restaurant Scenarios**: Order food, ask about dishes, handle dining situations
+- **Travel Dialogues**: Navigate transportation, ask for directions, book accommodations
 
 ## 🎯 How It Works
 
-### Learning Flow
-1. **Select a Lesson** - Choose from 300+ structured lessons
-2. **Listen & Repeat** - AI speaks French phrases for you to repeat
-3. **Get Feedback** - Real-time pronunciation and grammar analysis
-4. **Practice & Improve** - Repeat until perfect pronunciation
-5. **Progress & Review** - Spaced repetition ensures retention
+### 1. Choose Your Scenario
+Select from various conversation contexts based on your interests and skill level:
+- **Beginner**: Basic greetings and introductions
+- **Intermediate**: Everyday situations and practical conversations
+- **Advanced**: Complex grammar and cultural nuances
 
-### Speech Recognition
-- **French Language Support** - Optimized for French pronunciation
-- **Real-time Analysis** - Immediate feedback on your speech
-- **Error Detection** - Identifies pronunciation and grammar issues
-- **Progressive Learning** - Adapts difficulty based on performance
+### 2. Engage in Dynamic Conversations
+- **AI Speaks**: Listen to natural French pronunciation
+- **You Respond**: Practice speaking with real-time feedback
+- **Get Corrected**: Receive immediate suggestions and explanations
+- **Learn Grammar**: Understand rules through context, not memorization
 
-### Spaced Repetition
-- **Intelligent Scheduling** - Reviews material at optimal intervals
-- **Performance Tracking** - Monitors your progress and weak areas
-- **Adaptive Review** - Focuses on challenging content
-- **Long-term Retention** - Ensures vocabulary and grammar stick
+### 3. Track Your Progress
+- **Performance Metrics**: Pronunciation, grammar, vocabulary, and fluency scores
+- **Weak Areas**: AI identifies what you need to practice
+- **Strong Points**: Celebrate your improvements
+- **Learning Path**: Personalized recommendations based on your performance
 
-## 🎨 User Interface
+## 🛠️ Technical Architecture
 
-### Design Philosophy
-- **Dark Theme** - Easy on the eyes for extended learning
-- **Mobile-First** - Optimized for mobile and tablet use
-- **Accessibility** - Voice-only operation for hands-free learning
-- **Intuitive Navigation** - Clear, simple interface design
+### Conversation System
+```typescript
+// Dynamic conversation generation
+const conversationSystem = new ConversationSystem()
+const session = conversationSystem.startSession('library_conversation')
 
-### Key Components
-- **Lesson Browser** - Browse 300+ lessons by topic
-- **Speaking Interface** - Real-time speech practice
-- **Progress Dashboard** - Track your learning journey
-- **Settings Panel** - Customize your learning experience
+// Real-time response analysis
+const analysis = conversationSystem.processUserResponse(spokenText)
+```
 
-## 🛠️ Technical Stack
-
-### Frontend
-- **Next.js 14** - React framework with app router
-- **TypeScript** - Type-safe development
-- **Tailwind CSS** - Utility-first styling
-- **Framer Motion** - Smooth animations
-- **Lucide React** - Beautiful icons
-
-### Speech Technology
-- **Web Speech API** - Native browser speech recognition
-- **Speech Synthesis** - High-quality text-to-speech
-- **Real-time Processing** - Immediate feedback and analysis
-
-### State Management
-- **Zustand** - Lightweight state management
-- **Local Storage** - Persistent user progress
-- **Session Management** - Learning session tracking
-
-## 📱 Features
-
-### Core Learning Features
-- ✅ **300+ Structured Lessons** across 20+ topics
-- ✅ **Real-time Speech Recognition** for pronunciation practice
-- ✅ **High-quality Text-to-Speech** with French voices
-- ✅ **Immediate Feedback** on pronunciation and grammar
-- ✅ **Spaced Repetition** for optimal retention
-- ✅ **Progress Tracking** with detailed analytics
-- ✅ **Multiple Learning Modes** (Lessons, Dialogs, Challenges, Repetitions)
+### AI-Driven Learning
+- **Speech Recognition**: Real-time French speech processing
+- **Natural Language Processing**: Grammar and vocabulary analysis
+- **Adaptive Feedback**: Personalized corrections and suggestions
+- **Performance Tracking**: Comprehensive learning analytics
 
 ### User Experience
-- ✅ **Dark Theme** with blue accent colors
-- ✅ **Mobile-Responsive** design
-- ✅ **Hands-free Operation** for natural learning
-- ✅ **Accessibility Features** for all users
-- ✅ **Offline Capability** with PWA support
-- ✅ **Progress Persistence** across sessions
+- **Mobile-First Design**: Optimized for mobile learning
+- **Dark Mode Interface**: Easy on the eyes for extended study sessions
+- **Smooth Animations**: Engaging visual feedback
+- **Intuitive Navigation**: Simple, distraction-free interface
 
-### Advanced Features
-- ✅ **Adaptive Learning** that adjusts to your pace
-- ✅ **Vocabulary Building** with contextual examples
-- ✅ **Grammar Integration** through natural conversation
-- ✅ **Cultural Context** in lesson content
-- ✅ **Performance Analytics** with detailed insights
+## 📱 Getting Started
 
-## 🎯 Learning Methodology
+### Prerequisites
+- Node.js 18+ 
+- Modern web browser with speech recognition support
+- Microphone for voice interaction
 
-### Speaking-First Approach
-The app emphasizes speaking as the primary learning method, following proven language acquisition principles:
+### Installation
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/langbuddy.git
+cd langbuddy
 
-- **Listen & Repeat** - Natural language learning pattern
-- **Immediate Feedback** - Correct pronunciation in real-time
-- **Contextual Learning** - Grammar and vocabulary in context
-- **Progressive Complexity** - Gradually increasing difficulty
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+```
+
+### Usage
+1. **Open the App**: Navigate to `http://localhost:3000`
+2. **Select Conversations**: Choose from available conversation scenarios
+3. **Start Speaking**: Allow microphone access and begin practicing
+4. **Get Feedback**: Receive real-time corrections and suggestions
+5. **Track Progress**: Monitor your improvement over time
+
+## 🎓 Learning Methodology
+
+### Conversation-Based Learning
+Unlike traditional apps that present isolated phrases, LangBuddy creates complete conversations that:
+- **Build Context**: Each conversation has a realistic scenario
+- **Include Grammar**: Learn grammar rules through natural usage
+- **Provide Feedback**: Get immediate corrections and explanations
+- **Adapt Difficulty**: AI adjusts based on your performance
 
 ### Spaced Repetition
-Intelligent review scheduling ensures long-term retention:
+- **Smart Review**: AI brings back phrases you struggle with
+- **Optimal Timing**: Review at the perfect moment for retention
+- **Personalized**: Focus on your specific weak areas
 
-- **Optimal Intervals** - Reviews at scientifically-proven intervals
-- **Performance-Based** - Adjusts based on your success rate
-- **Weak Area Focus** - Prioritizes challenging content
-- **Long-term Memory** - Builds lasting language skills
+### Cultural Integration
+- **Real Scenarios**: Practice in authentic French situations
+- **Cultural Notes**: Learn about French customs and etiquette
+- **Social Context**: Understand formal vs. informal language
 
-## 🚀 Deployment
+## 🔧 Customization
 
-### Vercel (Recommended)
-```bash
-npm install -g vercel
-vercel
+### Adding New Conversations
+```typescript
+// Create new conversation context
+const newContext: ConversationContext = {
+  id: 'custom_conversation',
+  title: 'At the Bank',
+  description: 'Practice banking vocabulary and formal language',
+  scenario: 'You need to open a bank account in France',
+  characters: [
+    { name: 'Marie', role: 'Bank Clerk', personality: 'Professional' }
+  ],
+  difficulty: 'intermediate',
+  grammarFocus: ['conditional tense', 'formal expressions'],
+  vocabularyFocus: ['banking terms', 'financial vocabulary']
+}
 ```
 
-### Netlify
-```bash
-npm run build
-# Deploy the 'out' directory
+### Extending Grammar Analysis
+```typescript
+// Add custom grammar rules
+const grammarRules = {
+  'formal_vs_informal': (text: string) => {
+    return text.includes('vous') ? 'formal' : 'informal'
+  },
+  'verb_conjugation': (text: string) => {
+    // Custom conjugation analysis
+  }
+}
 ```
 
-### Self-Hosting
-```bash
-npm run build
-npm start
-```
+## 📊 Performance Metrics
 
-## 📊 Performance
+### Learning Analytics
+- **Pronunciation Score**: Real-time speech analysis
+- **Grammar Accuracy**: Context-aware grammar checking
+- **Vocabulary Mastery**: Word usage and retention tracking
+- **Fluency Assessment**: Speaking speed and naturalness
 
-- **Fast Loading** - Optimized for quick startup
-- **Smooth Animations** - 60fps interactions
-- **Efficient Speech Processing** - Real-time analysis
-- **Minimal Resource Usage** - Lightweight and responsive
-
-## 🔧 Configuration
-
-### Environment Variables
-```env
-NEXT_PUBLIC_APP_NAME=LangBuddy
-NEXT_PUBLIC_APP_VERSION=1.0.0
-```
-
-### Customization
-- **Lesson Content** - Easily add new lessons and topics
-- **Speech Settings** - Adjust recognition sensitivity
-- **UI Themes** - Customize colors and styling
-- **Learning Paths** - Create personalized curricula
+### Progress Tracking
+- **Session History**: Complete record of all conversations
+- **Weak Areas**: AI-identified areas needing improvement
+- **Strong Points**: Celebrated achievements and strengths
+- **Learning Trends**: Long-term progress visualization
 
 ## 🤝 Contributing
 
-We welcome contributions! Please see our contributing guidelines for details.
+We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md) for details.
+
+### Development Setup
+```bash
+# Install dependencies
+npm install
+
+# Run tests
+npm test
+
+# Build for production
+npm run build
+```
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🎉 Success Tips
+## 🙏 Acknowledgments
 
-### For Best Results
-1. **Practice Daily** - Even 10-15 minutes daily is effective
-2. **Speak Aloud** - Use the speech recognition features actively
-3. **Complete Lessons** - Finish lessons before moving to new ones
-4. **Review Regularly** - Use the repetition features for retention
-5. **Be Patient** - Language learning is a journey, not a sprint
+- Inspired by Natulang's innovative conversation-based approach
+- Built with Next.js, React, and TypeScript
+- Speech recognition powered by Web Speech API
+- UI components from Lucide React
 
-### Learning Strategies
-- **Start with Basics** - Master greetings and introductions first
-- **Focus on Pronunciation** - Use the speech feedback actively
-- **Practice Contextually** - Apply what you learn in real situations
-- **Review Weak Areas** - Use the repetition mode for challenging content
-- **Track Progress** - Monitor your improvement over time
+## 📞 Support
 
-## 🎯 Ready to Start?
+- **Documentation**: [Wiki](https://github.com/yourusername/langbuddy/wiki)
+- **Issues**: [GitHub Issues](https://github.com/yourusername/langbuddy/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/yourusername/langbuddy/discussions)
 
-LangBuddy is designed to make French learning natural, effective, and enjoyable. With 300+ lessons, real-time speech recognition, and intelligent spaced repetition, you'll be speaking French confidently in no time!
+---
 
-**Start your French learning journey today!** 🇫🇷✨ 
+**Ready to start your French learning journey?** 🚀
+
+Choose a conversation scenario and begin practicing with our AI-powered French tutor today! 

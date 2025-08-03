@@ -16,17 +16,27 @@ import {
   Monitor,
   Headphones,
   Crown,
-  Lightbulb
+  Lightbulb,
+  Target,
+  Star,
+  Award,
+  TrendingUp,
+  Clock,
+  Users,
+  CheckCircle
 } from 'lucide-react'
 import { useTheme } from 'next-themes'
 import { useLearningStore } from '@/lib/store'
 import LessonsInterface from './lessons-interface'
+import ConversationSelector from './conversation-selector'
+import ConversationInterface from './conversation-interface'
 import SpeakingInterface from './speaking-interface'
 import ProgressOverview from './progress-overview'
 import SettingsPanel from './settings-panel'
 import { Lesson } from '@/lib/lesson-system'
+import { ConversationContext, LearningSession } from '@/lib/conversation-system'
 
-type TabType = 'lessons' | 'free-dialogs' | 'challenging' | 'repetitions' | 'progress' | 'settings'
+type TabType = 'lessons' | 'conversations' | 'challenging' | 'repetitions' | 'progress' | 'settings'
 
 interface Tab {
   id: TabType
@@ -35,8 +45,10 @@ interface Tab {
 }
 
 export default function Dashboard() {
-  const [activeTab, setActiveTab] = useState<TabType>('lessons')
+  const [activeTab, setActiveTab] = useState<TabType>('conversations')
   const [selectedLesson, setSelectedLesson] = useState<Lesson | null>(null)
+  const [selectedContext, setSelectedContext] = useState<ConversationContext | null>(null)
+  const [completedSession, setCompletedSession] = useState<LearningSession | null>(null)
   const [isListening, setIsListening] = useState(false)
   const [isSpeaking, setIsSpeaking] = useState(false)
   const { theme, setTheme } = useTheme()
@@ -44,7 +56,7 @@ export default function Dashboard() {
 
   const tabs: Tab[] = [
     { id: 'lessons', label: 'Lessons', icon: BookOpen },
-    { id: 'free-dialogs', label: 'Free Dialogs', icon: MessageCircle },
+    { id: 'conversations', label: 'Conversations', icon: MessageCircle },
     { id: 'challenging', label: 'Challenging', icon: Crown },
     { id: 'repetitions', label: 'Repetitions', icon: Lightbulb },
     { id: 'progress', label: 'Progress', icon: BarChart3 },
@@ -55,6 +67,10 @@ export default function Dashboard() {
     setSelectedLesson(lesson)
   }
 
+  const handleContextSelect = (context: ConversationContext) => {
+    setSelectedContext(context)
+  }
+
   const handleLessonComplete = (lesson: Lesson) => {
     // Mark lesson as completed
     lesson.isCompleted = true
@@ -62,8 +78,29 @@ export default function Dashboard() {
     // You could update the store here with lesson completion
   }
 
+  const handleConversationComplete = (session: LearningSession) => {
+    setCompletedSession(session)
+    setSelectedContext(null)
+    // You could update the store here with session completion
+  }
+
   const handleBackToLessons = () => {
     setSelectedLesson(null)
+  }
+
+  const handleBackToConversations = () => {
+    setSelectedContext(null)
+  }
+
+  // If a conversation context is selected, show the conversation interface
+  if (selectedContext) {
+    return (
+      <ConversationInterface
+        context={selectedContext}
+        onComplete={handleConversationComplete}
+        onBack={handleBackToConversations}
+      />
+    )
   }
 
   // If a lesson is selected, show the speaking interface
@@ -73,6 +110,16 @@ export default function Dashboard() {
         lesson={selectedLesson}
         onComplete={handleLessonComplete}
         onBack={handleBackToLessons}
+      />
+    )
+  }
+
+  // Show conversation selector for conversations tab
+  if (activeTab === 'conversations') {
+    return (
+      <ConversationSelector 
+        onSelectContext={handleContextSelect}
+        onBack={() => setActiveTab('lessons')}
       />
     )
   }
@@ -125,50 +172,163 @@ export default function Dashboard() {
             ))}
           </div>
 
+          {/* Welcome Section */}
+          <div className="bg-gradient-to-r from-blue-900/50 to-purple-900/50 rounded-lg p-6 mb-6">
+            <div className="flex items-center space-x-3 mb-4">
+              <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center">
+                <MessageCircle className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <h2 className="text-2xl font-bold">Welcome to LangBuddy!</h2>
+                <p className="text-gray-300">Your AI-powered French learning companion</p>
+              </div>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="flex items-center space-x-3">
+                <Target className="w-5 h-5 text-green-400" />
+                <div>
+                  <p className="font-medium">Beginner Friendly</p>
+                  <p className="text-sm text-gray-400">Start with basic conversations</p>
+                </div>
+              </div>
+              <div className="flex items-center space-x-3">
+                <Star className="w-5 h-5 text-yellow-400" />
+                <div>
+                  <p className="font-medium">Interactive Learning</p>
+                  <p className="text-sm text-gray-400">Practice with real conversations</p>
+                </div>
+              </div>
+              <div className="flex items-center space-x-3">
+                <Award className="w-5 h-5 text-purple-400" />
+                <div>
+                  <p className="font-medium">Track Progress</p>
+                  <p className="text-sm text-gray-400">Monitor your improvement</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Quick Stats */}
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+            <div className="bg-gray-800 rounded-lg p-4">
+              <div className="flex items-center space-x-3">
+                <div className="w-10 h-10 bg-green-600 rounded-lg flex items-center justify-center">
+                  <Target className="w-5 h-5 text-white" />
+                </div>
+                <div>
+                  <p className="text-2xl font-bold">12</p>
+                  <p className="text-sm text-gray-400">Lessons Completed</p>
+                </div>
+              </div>
+            </div>
+            <div className="bg-gray-800 rounded-lg p-4">
+              <div className="flex items-center space-x-3">
+                <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
+                  <MessageCircle className="w-5 h-5 text-white" />
+                </div>
+                <div>
+                  <p className="text-2xl font-bold">8</p>
+                  <p className="text-sm text-gray-400">Conversations</p>
+                </div>
+              </div>
+            </div>
+            <div className="bg-gray-800 rounded-lg p-4">
+              <div className="flex items-center space-x-3">
+                <div className="w-10 h-10 bg-yellow-600 rounded-lg flex items-center justify-center">
+                  <TrendingUp className="w-5 h-5 text-white" />
+                </div>
+                <div>
+                  <p className="text-2xl font-bold">85%</p>
+                  <p className="text-sm text-gray-400">Accuracy</p>
+                </div>
+              </div>
+            </div>
+            <div className="bg-gray-800 rounded-lg p-4">
+              <div className="flex items-center space-x-3">
+                <div className="w-10 h-10 bg-purple-600 rounded-lg flex items-center justify-center">
+                  <Clock className="w-5 h-5 text-white" />
+                </div>
+                <div>
+                  <p className="text-2xl font-bold">45</p>
+                  <p className="text-sm text-gray-400">Minutes Today</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
           {/* Tab Content */}
           <div className="space-y-6">
-            {activeTab === 'free-dialogs' && (
-              <div className="text-center py-12">
-                <MessageCircle className="w-16 h-16 mx-auto mb-4 text-blue-400" />
-                <h2 className="text-2xl font-bold mb-2">Free Dialogs</h2>
-                <p className="text-gray-400 mb-6">
-                  Practice conversational French with AI-powered dialogues
-                </p>
-                <button className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition-colors">
-                  Start Free Dialog
-                </button>
-              </div>
-            )}
-
             {activeTab === 'challenging' && (
               <div className="text-center py-12">
                 <Crown className="w-16 h-16 mx-auto mb-4 text-yellow-400" />
                 <h2 className="text-2xl font-bold mb-2">Challenging</h2>
                 <p className="text-gray-400 mb-6">
-                  Test your French skills with advanced challenges
+                  Test your French skills with advanced challenges and complex scenarios
                 </p>
-                <button className="bg-yellow-600 hover:bg-yellow-700 text-white font-medium py-3 px-6 rounded-lg transition-colors">
-                  Start Challenge
-                </button>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl mx-auto">
+                  <button className="bg-yellow-600 hover:bg-yellow-700 text-white font-medium py-3 px-6 rounded-lg transition-colors">
+                    Advanced Conversations
+                  </button>
+                  <button className="bg-purple-600 hover:bg-purple-700 text-white font-medium py-3 px-6 rounded-lg transition-colors">
+                    Grammar Challenges
+                  </button>
+                </div>
               </div>
             )}
 
             {activeTab === 'repetitions' && (
               <div className="text-center py-12">
                 <Lightbulb className="w-16 h-16 mx-auto mb-4 text-green-400" />
-                <h2 className="text-2xl font-bold mb-2">Repetitions</h2>
+                <h2 className="text-2xl font-bold mb-2">Smart Repetitions</h2>
                 <p className="text-gray-400 mb-6">
-                  Review and practice phrases you need to remember
+                  Review and practice phrases you need to remember with spaced repetition
                 </p>
-                <button className="bg-green-600 hover:bg-green-700 text-white font-medium py-3 px-6 rounded-lg transition-colors">
-                  Start Repetitions
-                </button>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl mx-auto">
+                  <button className="bg-green-600 hover:bg-green-700 text-white font-medium py-3 px-6 rounded-lg transition-colors">
+                    Start Repetitions
+                  </button>
+                  <button className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition-colors">
+                    Review Weak Areas
+                  </button>
+                </div>
               </div>
             )}
 
             {activeTab === 'progress' && <ProgressOverview />}
             {activeTab === 'settings' && <SettingsPanel />}
           </div>
+
+          {/* Recent Activity */}
+          {activeTab === 'conversations' && (
+            <div className="bg-gray-800 rounded-lg p-6 mt-6">
+              <h3 className="text-lg font-semibold mb-4 flex items-center space-x-2">
+                <Clock className="w-5 h-5 text-blue-400" />
+                <span>Recent Activity</span>
+              </h3>
+              <div className="space-y-3">
+                <div className="flex items-center space-x-3 p-3 bg-gray-700 rounded-lg">
+                  <div className="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center">
+                    <CheckCircle className="w-4 h-4 text-white" />
+                  </div>
+                  <div className="flex-1">
+                    <p className="font-medium">Library Conversation</p>
+                    <p className="text-sm text-gray-400">Completed with 92% accuracy</p>
+                  </div>
+                  <span className="text-xs text-gray-400">2 hours ago</span>
+                </div>
+                <div className="flex items-center space-x-3 p-3 bg-gray-700 rounded-lg">
+                  <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
+                    <MessageCircle className="w-4 h-4 text-white" />
+                  </div>
+                  <div className="flex-1">
+                    <p className="font-medium">Restaurant Conversation</p>
+                    <p className="text-sm text-gray-400">In progress - 3/5 turns</p>
+                  </div>
+                  <span className="text-xs text-gray-400">1 hour ago</span>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </main>
 
@@ -182,7 +342,7 @@ export default function Dashboard() {
           
           <div className="flex flex-col items-center space-y-1">
             <MessageCircle className="w-6 h-6 text-blue-400" />
-            <span className="text-xs text-blue-400">Free Dialogs</span>
+            <span className="text-xs text-blue-400">Conversations</span>
           </div>
           
           <div className="flex flex-col items-center space-y-1">
@@ -192,7 +352,7 @@ export default function Dashboard() {
           
           <div className="flex flex-col items-center space-y-1">
             <Lightbulb className="w-6 h-6 text-gray-400" />
-            <span className="text-xs text-gray-400">Repetitions</span>
+            <span className="text-xs text-gray-400">Practice</span>
           </div>
         </div>
       </nav>
