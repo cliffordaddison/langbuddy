@@ -38,6 +38,9 @@ import { ConversationContext, LearningSession } from '@/lib/conversation-system'
 
 type TabType = 'lessons' | 'conversations' | 'challenging' | 'repetitions' | 'progress' | 'settings'
 
+const CONVERSATIONS_TAB: TabType = 'conversations'
+const LESSONS_TAB: TabType = 'lessons'
+
 interface Tab {
   id: TabType
   label: string
@@ -115,11 +118,11 @@ export default function Dashboard() {
   }
 
   // Show conversation selector for conversations tab
-  if (activeTab === 'conversations') {
+  if (activeTab === CONVERSATIONS_TAB) {
     return (
       <ConversationSelector 
         onSelectContext={handleContextSelect}
-        onBack={() => setActiveTab('lessons')}
+        onBack={() => setActiveTab(LESSONS_TAB)}
       />
     )
   }
@@ -129,6 +132,16 @@ export default function Dashboard() {
     return (
       <LessonsInterface onLessonSelect={handleLessonSelect} />
     )
+  }
+
+  // Handle other tabs
+  switch (activeTab) {
+    case 'challenging':
+    case 'repetitions':
+    case 'progress':
+    case 'settings':
+      // These will be handled in the main return statement
+      break
   }
 
   return (
@@ -298,37 +311,7 @@ export default function Dashboard() {
             {activeTab === 'settings' && <SettingsPanel />}
           </div>
 
-          {/* Recent Activity */}
-          {activeTab === 'conversations' && (
-            <div className="bg-gray-800 rounded-lg p-6 mt-6">
-              <h3 className="text-lg font-semibold mb-4 flex items-center space-x-2">
-                <Clock className="w-5 h-5 text-blue-400" />
-                <span>Recent Activity</span>
-              </h3>
-              <div className="space-y-3">
-                <div className="flex items-center space-x-3 p-3 bg-gray-700 rounded-lg">
-                  <div className="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center">
-                    <CheckCircle className="w-4 h-4 text-white" />
-                  </div>
-                  <div className="flex-1">
-                    <p className="font-medium">Library Conversation</p>
-                    <p className="text-sm text-gray-400">Completed with 92% accuracy</p>
-                  </div>
-                  <span className="text-xs text-gray-400">2 hours ago</span>
-                </div>
-                <div className="flex items-center space-x-3 p-3 bg-gray-700 rounded-lg">
-                  <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
-                    <MessageCircle className="w-4 h-4 text-white" />
-                  </div>
-                  <div className="flex-1">
-                    <p className="font-medium">Restaurant Conversation</p>
-                    <p className="text-sm text-gray-400">In progress - 3/5 turns</p>
-                  </div>
-                  <span className="text-xs text-gray-400">1 hour ago</span>
-                </div>
-              </div>
-            </div>
-          )}
+
         </div>
       </main>
 
