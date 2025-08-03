@@ -11,7 +11,7 @@ export interface LessonCommand {
     target?: string
     appendText: boolean
   }
-  language: 'source' | 'target'
+  language?: 'source' | 'target'
   errors?: string[]
 }
 
@@ -137,7 +137,8 @@ export class NatulangInspiredSystem {
         {
           command: 'ready',
           startHere: false,
-          order: -0.71875
+          order: -0.71875,
+          language: 'source'
         },
         {
           command: 'read',
@@ -160,7 +161,10 @@ export class NatulangInspiredSystem {
           language: 'source'
         },
         {
-          command: 'evaluation'
+          command: 'evaluation',
+          startHere: false,
+          order: 0,
+          language: 'source'
         },
         {
           command: 'read',
@@ -200,17 +204,22 @@ export class NatulangInspiredSystem {
           language: 'source'
         },
         {
-          command: 'scientificIntervals'
+          command: 'scientificIntervals',
+          startHere: false,
+          order: 0,
+          language: 'source'
         },
         {
           command: 'ready',
           startHere: false,
-          order: 0.5
+          order: 0.5,
+          language: 'source'
         },
         {
           command: 'repeat',
           startHere: false,
-          order: 0
+          order: 0,
+          language: 'source'
         },
         {
           command: 'read',
@@ -276,12 +285,14 @@ export class NatulangInspiredSystem {
         {
           command: 'ready',
           startHere: false,
-          order: 0.5
+          order: 0.5,
+          language: 'source'
         },
         {
           command: 'repeat',
           startHere: false,
-          order: 1
+          order: 1,
+          language: 'source'
         },
         {
           command: 'read',
